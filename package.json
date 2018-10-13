@@ -1,0 +1,30 @@
+{
+  "name": "masterless-storage",
+  "version": "1.0.0",
+  "description": "A Master-less online storage solution with automated replicas and synchronization",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "start": "ts-node src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giuliojiang/masterless-storage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giuliojiang/masterless-storage/issues"
+  },
+  "homepage": "https://github.com/giuliojiang/masterless-storage#readme",
+  "devDependencies": {
+    "@types/node": "^10.11.7",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.3"
+  }
+}
