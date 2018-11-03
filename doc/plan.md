@@ -7,9 +7,7 @@ a shared MongoDB database in which all metadata is stored.
 
 ## Instances table
 
-* name
-* ip
-* port
+* instanceid - it's a guid
 * timestamp
 
 Contains the registered instances. Each instance has its own identifying name (arbitrarily set by the instance creation).
@@ -27,7 +25,7 @@ Each file has:
 * _id string, also used to determine the name of the file when stored in each instance
 * present. A boolean flag. True means the file is normal, False means that the file has been deleted.
 * ready. Ready = false means that the file is being uploaded
-* updated. Timestamp. Useful for instances to check for most recent changes.
+* updated. Timestamp. Useful for instances to check for most recent changes. Also used to wipe files that failed to upload (ready = false and timestamp too old)
 
 Files cannot be modified. Which means that if the user wants to modify a file, he needs to delete the old one and create
 a new one. This is important to make sure that all references are consistent.
