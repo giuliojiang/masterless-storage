@@ -8,7 +8,7 @@ a shared MongoDB database in which all metadata is stored.
 ## Instances table
 
 * instanceid - it's a guid
-* timestamp
+* timestamp - timestamp in milliseconds
 
 Contains the registered instances. Each instance has its own identifying name (arbitrarily set by the instance creation).
 
