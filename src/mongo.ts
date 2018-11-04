@@ -1,13 +1,10 @@
 import * as mongodb from 'mongodb';
+import { config } from './../local/config';
 
-var connectionString: string = "mongodb://localhost:27017";
-var databaseName: string = "masterlessstorage";
-var collectionName: string = "masterlessstorage";
-
-module.exports.getDb = async function(): Promise<mongodb.Collection<any>> {
+var getDb = async function(): Promise<mongodb.Collection<any>> {
     let MongoClient = mongodb.MongoClient;
     let connectPromise = new Promise<mongodb.MongoClient>((resolve, reject) => {
-        MongoClient.connect(connectionString, (err, db) => {
+        MongoClient.connect(config.mongoConnectionString, (err, db) => {
             if (err) {
                 reject(err);
             } else {
@@ -16,7 +13,18 @@ module.exports.getDb = async function(): Promise<mongodb.Collection<any>> {
         });
     });
     let db = await connectPromise;
-    var dbo = db.db(databaseName);
-    var collection = dbo.collection(collectionName);
+    var dbo = db.db(config.mongoDatabaseName);
+    var collection = dbo.collection(config.mongoCollectionName);
     return collection;
+};
+
+var dbInstance: mongodb.Collection<any> = null;
+
+var getCollection = async function(): Promise<mongodb.Collection<any>> {
+    if (dbInstance == null) {
+        dbInstance = await getDb();
+    }
+    return dbInstance;
 }
+
+export {getCollection};
