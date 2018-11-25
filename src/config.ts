@@ -11,6 +11,9 @@ var setConfig = function(config: Config): void {
 }
 
 var getConfig = function(): Config {
+    if (priv.conf == null) {
+        throw new Error("You have not set a configuration. Please use config.setConfig");
+    }
     return priv.conf;
 }
 

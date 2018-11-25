@@ -1,6 +1,7 @@
 import * as mongo from './mongo';
 import { InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
 import { Logger } from './util/logger';
+import * as dateutil from './util/dateutil';
 
 const logger = new Logger("mongoinstances");
 const INSTANCES_COLLECTION = "instances";
@@ -8,7 +9,7 @@ const INSTANCES_COLLECTION = "instances";
 // <instanceid> new instance id. Should be a GUID string
 // <return>     number of inserted documents
 var addInstance = async function(instanceid: string): Promise<number> {
-    let currentTimeMillis: number = new Date().getTime();
+    let currentTimeMillis: number = dateutil.nowAsMillis();
     let doc = {
         instanceid: instanceid,
         timestamp: currentTimeMillis

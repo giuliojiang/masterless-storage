@@ -21,14 +21,14 @@ Instances that have not been updated for more than 7 days are removed, including
 ## Files table
 
 Each file has: 
-* original filename, including extension
+* fullPath. full path, used to check uniqueness
+* directory
+* basename. Includes file extension
 * _id string, also used to determine the name of the file when stored in each instance
-* present. A boolean flag. True means the file is normal, False means that the file has been deleted.
-* ready. Ready = false means that the file is being uploaded
-* updated. Timestamp. Useful for instances to check for most recent changes. Also used to wipe files that failed to upload (ready = false and timestamp too old)
+* status. "present" the file is available. "deleted" the file was deleted. "uploading" the file is being uploaded.
+* updated. Timestamp to wipe away files that never finished uploading.
 
-Files cannot be modified. Which means that if the user wants to modify a file, he needs to delete the old one and create
-a new one. This is important to make sure that all references are consistent.
+Files cannot be modified. Which means that if the user wants to modify a file, he needs to delete the old one and create a new one. This is important to make sure that all references are consistent.
 
 ## Owners table
 
