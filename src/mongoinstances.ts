@@ -3,6 +3,7 @@ import { InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject 
 import { Logger } from './util/logger';
 
 const logger = new Logger("mongoinstances");
+const INSTANCES_COLLECTION = "instances";
 
 // <instanceid> new instance id. Should be a GUID string
 // <return>     number of inserted documents
@@ -12,7 +13,7 @@ var addInstance = async function(instanceid: string): Promise<number> {
         instanceid: instanceid,
         timestamp: currentTimeMillis
     };
-    let collection = await mongo.getCollection();
+    let collection = await mongo.getCollection(INSTANCES_COLLECTION);
     let insertPromise = new Promise<InsertOneWriteOpResult>((resolve, reject) => {
         collection.insertOne(doc, (err, res) => {
             if (err) {
@@ -40,7 +41,7 @@ var updateTimestamp = async function(instanceid: string): Promise<number> {
             timestamp: currentTimeMillis
         }
     };
-    let collection = await mongo.getCollection();
+    let collection = await mongo.getCollection(INSTANCES_COLLECTION);
     let updatePromise = new Promise<UpdateWriteOpResult>((resolve, reject) => {
         collection.updateOne(query, update, (err, res) => {
             if (err) {
@@ -61,7 +62,7 @@ var removeInstance = async function(instanceid: string): Promise<number> {
     let query = {
         instanceid: instanceid
     };
-    let collection = await mongo.getCollection();
+    let collection = await mongo.getCollection(INSTANCES_COLLECTION);
     let deletePromise = new Promise<DeleteWriteOpResultObject>((resolve, reject) => {
         collection.deleteMany(query, (err, res) => {
             if (err) {
